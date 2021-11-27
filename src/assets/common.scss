@@ -1,0 +1,21 @@
+@import "./normalize.css";
+@import "./_var.scss";
+
+html {
+	line-height: 1.15;
+	text-size-adjust: 100%;
+}
+
+body {
+	margin: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "avenir next", avenir, helvetica,
+		"helvetica neue", ubuntu, roboto, noto, "segoe ui", arial, sans-serif;
+}
+
+.sep-line {
+	border-bottom: 1px solid $silver;
+	padding-top: $spacing-small;
+	margin-bottom: $spacing-small;
+}
+
+
