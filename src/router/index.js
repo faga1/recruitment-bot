@@ -1,5 +1,6 @@
 import Login from '../pages/Login';
 import Resume from '../pages/Resume';
+import Exist from '../pages/Exist'
 function flatten(arr) {
 	return arr.reduce((prev, current) => {
 		return prev.concat(Array.isArray(current.children) ? flatten(current.children) : current);
@@ -16,11 +17,18 @@ export const menus = [
 	},
 	{
 		path: "/resume",
-		name: "授权",
+		name: "简历",
 		icon: "",
 		exact: true,
 		component: Resume,
 	},
+	{
+		path:'/exist',
+		name: "存在",
+		icon: "",
+		exact: true,
+		component: Exist,
+	}
 	
 	// {
 	// 	path: "/func",
