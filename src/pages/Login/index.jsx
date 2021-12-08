@@ -1,8 +1,6 @@
 import React,{useEffect} from 'react'
-import request,{axiosInstance} from '@/components/request'
-import { isExist, token } from '../../components/request/request'
+import { token } from '../../components/request'
 import { Spin, message } from 'antd'
-import axios from 'axios'
 
 export default function(props){
     useEffect(() => {
@@ -14,6 +12,7 @@ export default function(props){
         const res = await token(code)
         if(res.data.code===20000){
             localStorage.setItem('token',res.data.data)
+            // 成功后跳转
             props.history.push('/resume')
             return res
         }

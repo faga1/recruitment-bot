@@ -2,8 +2,7 @@ import React,{useEffect,useState}from "react";
 import {Form,Input,Button,Upload,Select,message} from 'antd'
 import './resume.scss'
 import addIcon from '../../../public/添加.png'
-import {  sendForm } from "../../components/request/request";
-import { checkExist } from "../../components/request/request";
+import {  sendForm,checkExist } from "../../components/request";
 
 const {Option}=Select
 export default function(props){
@@ -34,6 +33,7 @@ export default function(props){
         if(!pdfFile){
             message.error('请上传简历')
         }
+        // 表单预验证
         form.validateFields().then(async(val)=>{
             let formData=new FormData()
             for(let i in val){
