@@ -12,6 +12,8 @@ export default function(props){
         let code=props.location.search.split('=')[1]
         let decode_url=decodeURIComponent(code)
         const res=await axiosInstance({url:'/login',method:'post',params:{code:decode_url}})
+        console.log(await axiosInstance.post('/resumes'))
+        
         if(res.data.code===20000){
             localStorage.setItem('token',res.data.data)
             props.history.push('/resume')

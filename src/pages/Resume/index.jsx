@@ -13,7 +13,7 @@ export default function(props){
 
     useEffect(() => {
         isExist()
-        redirect()
+        // redirect()
     },[])
     const redirect = async()=>{
         if(!localStorage.getItem('token')){
@@ -23,7 +23,8 @@ export default function(props){
     }
     const isExist=async()=>{
         const res= await axiosInstance.get('/resumes/exist')
-        if(res.data){
+        console.log(res.data.code);
+        if(res.data.data){
             props.history.push('/exist')
         }
     }
@@ -101,7 +102,15 @@ export default function(props){
                                 message: '请输入你的工作年限',
                                 },
                             ]}>
-                            <Input type="text" placeholder='单行输入'/>
+                            <Select type="text" placeholder='单行输入'>
+                                <Option value='应届'>应届</Option>
+                                <Option value='一年'>一年</Option>
+                                <Option value='两年'>两年</Option>
+                                <Option value='三年'>三年</Option>
+                                <Option value='三到五年'>三到五年</Option>
+                                <Option value='五到十年'>五到十年</Option>
+                                <Option value='十年以上'>十年以上</Option>
+                            </Select>
                         </Form.Item>
                         <Form.Item 
                             label='现住地址'

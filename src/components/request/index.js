@@ -26,6 +26,7 @@ export const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use((config)=>{
 	config.headers.token=localStorage.getItem('token')
+	console.log(config);
 	return config
 }
 
@@ -34,13 +35,14 @@ axiosInstance.interceptors.request.use((config)=>{
 axiosInstance.interceptors.response.use(
 	function(response) {
 		const d = response.data;
+		console.log(response);
 		// if (d.status !== 0 && d.status !== -1) {
 		// 	const msg = d.message || "操作失败";
 		// 	message.error(msg);
 		// }
 		if(d.code===41100){
 			window.location.href='http://auth.risingsun.pro/open/oauth2/authorize?response_type=code&client_id=303801896127303680'
-			message.error('授权状态失效')
+			message.error('登陆状态过期')
 		}
 
 		return response;

@@ -1,7 +1,6 @@
 import React from "react";
 import { BrowserRouter,Route,Switch,Redirect } from "react-router-dom";
 import routes from "@/router";
-import './App.scss'
 
 
 export default function() {
