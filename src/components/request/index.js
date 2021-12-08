@@ -21,77 +21,76 @@ const codeMessage = {
 
 export const axiosInstance = axios.create({
 	baseURL:'https://liuchaoyang-8099.cloud.wizzstudio.com',
-	headers: { "X-Requested-With": "XMLHttpRequest" },
+	// headers: { "X-Requested-With": "XMLHttpRequest" },
 });
 
-axiosInstance.interceptors.request.use((config)=>{
-	config.headers.token=localStorage.getItem('token')
-	console.log(config);
-	return config
-}
+// axiosInstance.interceptors.request.use((config)=>{
+// 	// config.headers.token=localStorage.getItem('token')
+// 	return config
+// }
 
-)
+// )
 
-axiosInstance.interceptors.response.use(
-	function(response) {
-		const d = response.data;
-		console.log(response);
-		// if (d.status !== 0 && d.status !== -1) {
-		// 	const msg = d.message || "操作失败";
-		// 	message.error(msg);
-		// }
-		if(d.code===41100){
-			window.location.href='http://auth.risingsun.pro/open/oauth2/authorize?response_type=code&client_id=303801896127303680'
-			message.error('登陆状态过期')
-		}
+// axiosInstance.interceptors.response.use(
+// 	function(response) {
+// 		const d = response.data;
+// 		console.log(response);
+// 		// if (d.status !== 0 && d.status !== -1) {
+// 		// 	const msg = d.message || "操作失败";
+// 		// 	message.error(msg);
+// 		// }
+// 		if(d.code===41100){
+// 			window.location.href='http://auth.risingsun.pro/open/oauth2/authorize?response_type=code&client_id=303801896127303680'
+// 			message.error('登陆状态过期')
+// 		}
 
-		return response;
-	},
-	function(error) {
-		// const code = error.response.status;
-		// const msg = codeMessage[code] || `未知错误[${code}]`;
-		// message.error(msg);
+// 		return response;
+// 	},
+// 	function(error) {
+// 		// const code = error.response.status;
+// 		// const msg = codeMessage[code] || `未知错误[${code}]`;
+// 		// message.error(msg);
 
-		// return Promise.reject(msg);
-	}
-);
+// 		// return Promise.reject(msg);
+// 	}
+// );
 
-export default {
-	get(...args) {
-		return axiosInstance.get(...args).then(data => {
-			const d = data.data;
+// export default {
+// 	get(...args) {
+// 		return axiosInstance.get(...args).then(data => {
+// 			const d = data.data;
 
-			// if (d.status === -1) {
-			// 	return Promise.reject(d.message || "请先登录");
-			// }
+// 			// if (d.status === -1) {
+// 			// 	return Promise.reject(d.message || "请先登录");
+// 			// }
 
-			// if (d.status !== 0) {
-			// 	return Promise.reject(d.message || `请求出现未知错误${[d.status]}`);
-			// }
+// 			// if (d.status !== 0) {
+// 			// 	return Promise.reject(d.message || `请求出现未知错误${[d.status]}`);
+// 			// }
 
-			return d;
-		});
-	},
-	post(url, data, ...a) {
-		return axiosInstance.post(url, data, ...a).then(data => {
-			const d = data.data;
+// 			return d;
+// 		});
+// 	},
+// 	post(url, data, ...a) {
+// 		return axiosInstance.post(url, data, ...a).then(data => {
+// 			const d = data.data;
 
-			// if (d.status === -1) {
-			// 	return Promise.reject(d.message || "请先登录");
-			// }
+// 			// if (d.status === -1) {
+// 			// 	return Promise.reject(d.message || "请先登录");
+// 			// }
 
-			// if (d.status !== 0) {
-			// 	return Promise.reject(d.message || `请求出现未知错误${[d.status]}`);
-			// }
+// 			// if (d.status !== 0) {
+// 			// 	return Promise.reject(d.message || `请求出现未知错误${[d.status]}`);
+// 			// }
 
-			return d;
-		});
-	},
-	fileUpload(url, data) {
-		return axiosInstance.post(url, data, {
-			headers: {
-				"Content-Type": "multipart/form-data",
-			},
-		});
-	},
-};
+// 			return d;
+// 		});
+// 	},
+// 	fileUpload(url, data) {
+// 		return axiosInstance.post(url, data, {
+// 			headers: {
+// 				"Content-Type": "multipart/form-data",
+// 			},
+// 		});
+// 	},
+// };

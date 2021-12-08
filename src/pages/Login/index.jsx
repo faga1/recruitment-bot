@@ -2,18 +2,16 @@ import React,{useEffect} from 'react'
 import request,{axiosInstance} from '@/components/request'
 import { isExist, token } from '../../components/request/request'
 import { Spin, message } from 'antd'
-
+import axios from 'axios'
 
 export default function(props){
     useEffect(() => {
         getToken()
     })
+    // 换取token
     const getToken=async()=>{
         let code=props.location.search.split('=')[1]
-        let decode_url=decodeURIComponent(code)
-        const res=await axiosInstance({url:'/login',method:'post',params:{code:decode_url}})
-        console.log(await axiosInstance.post('/resumes'))
-        
+        const res = await token(code)
         if(res.data.code===20000){
             localStorage.setItem('token',res.data.data)
             props.history.push('/resume')

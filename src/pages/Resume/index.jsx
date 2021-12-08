@@ -1,10 +1,9 @@
 import React,{useEffect,useState}from "react";
 import {Form,Input,Button,Upload,Select,message} from 'antd'
-import { UserOutlined } from '@ant-design/icons';
 import './resume.scss'
 import addIcon from '../../../public/添加.png'
 import {  sendForm } from "../../components/request/request";
-import request, { axiosInstance } from "../../components/request";
+import { checkExist } from "../../components/request/request";
 
 const {Option}=Select
 export default function(props){
@@ -12,17 +11,19 @@ export default function(props){
     const [form]=Form.useForm()
 
     useEffect(() => {
+        redirect()
         isExist()
-        // redirect()
     },[])
+    // 没有token,跳转授权页
     const redirect = async()=>{
         if(!localStorage.getItem('token')){
             window.location.href='http://auth.risingsun.pro/open/oauth2/authorize?response_type=code&client_id=303801896127303680'
         }
         
     }
+    // 判断简历是否存在
     const isExist=async()=>{
-        const res= await axiosInstance.get('/resumes/exist')
+        const res= await checkExist()
         console.log(res.data.code);
         if(res.data.data){
             props.history.push('/exist')
