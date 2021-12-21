@@ -17,15 +17,20 @@
             }
         }
        
-        .ant-form{
+        form{
             margin-top:3.1vw;
             display: flex;
             flex-wrap: wrap;
+            font-size:1vw;
+            .ant-form-item:not(:last-child){
+                .ant-form-item-control{
+                    width: 16.6vw;
+                    height: 2.5vw;
+                }
+            }
             .ant-form-item{
                 margin:0 3.1vw 2vw 2vw;
                 .ant-input{
-                    width: 16.6vw;
-                    height: 2.5vw;
                     border-radius: 0;
                 }
                 label{
@@ -38,18 +43,19 @@
                     resize:none
                 }
                 .ant-select-selector{
-                    width: 16.6vw;
-                    height: 2.5vw;
                     border-radius: 0;
                 }
+                
+                
             }
+            
         }
         .resume-right{
            
             .resume-addResume{
                 position:absolute;
                 top:6.7vw;
-                right:0;    
+                right:2vw;    
                 margin-top: 2.4vw;
                 .ant-upload{
                     width:5.2vw;
@@ -71,7 +77,6 @@
                     color:$near-black;
                 }
                 .text-remark{
-                    width: 15vw;
                     text-align: center;
                     color:#999999;
                     font-size: 0.8vw;
@@ -83,7 +88,12 @@
                 bottom:3.1vw;
                 right: 2vw;
                 width: 11vw;
+                height: 2.6vw;
+                min-height: 25px;
                 background-color: #0080FF!important;
+                display: flex;
+                justify-content: center;
+                align-items: center;
             }
         }
     }

@@ -25,9 +25,11 @@ export async function checkExist(){
 // 提交简历
 export async function sendForm(formData){
     const res=await axios.post(`${baseURL}/resumes`,formData)
-    if(res.data.code===20000){
-        message.success('简历提交成功')
+    if(res.data.code!==20000){
+        return message.error('提交简历失败')
     }
+    sessionStorage.getItem('info')&&sessionStorage.removeItem('info')
+    message.success('简历提交成功')
     return res
 }
 

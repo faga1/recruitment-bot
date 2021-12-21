@@ -12,6 +12,9 @@ export default function(props){
     useEffect(() => {
         redirect()
         isExist()
+        if(sessionStorage.getItem('info')){
+            form.setFieldsValue(JSON.parse(sessionStorage.getItem('info')))
+        }
     },[])
     // 没有token,跳转授权页
     const redirect = async()=>{
@@ -35,13 +38,19 @@ export default function(props){
         }
         // 表单预验证
         form.validateFields().then(async(val)=>{
+            // window.location.href='http://auth.risingsun.pro/open/oauth2/authorize?response_type=code&client_id=303801896127303680'
+            sessionStorage.setItem('info',JSON.stringify(val))
             let formData=new FormData()
             for(let i in val){
                 formData.append(i,val[i])
             }
             formData.append('file',pdfFile)
             formData.get('work_year')
-            sendForm(formData)
+
+            const res = await sendForm(formData)
+            if(res.data.code===20000){
+                props.history.push('/exist')
+            }
             
         })
         
@@ -78,8 +87,8 @@ export default function(props){
                                 },
                             ]}>
                             <Select type="text" placeholder='单行输入'>
-                                <Option value={0}>男</Option>
-                                <Option value={1}>女</Option>
+                                <Option value={1}>男</Option>
+                                <Option value={0}>女</Option>
                             </Select>
                         </Form.Item>
                         <Form.Item 
@@ -180,10 +189,10 @@ export default function(props){
                             <Upload 
                                 accept='application/pdf'
                                 beforeUpload={(file)=>{
-                                    const reader = new FileReader()
-                                    reader.readAsDataURL(file)
-                                    reader.onload=e=>{
-                                        file.thumbUrl=e.target.result
+                                    if(file.size>10000000){
+                                        message.error('上传文件不得超过10M')
+                                        return Promise.reject()
+                                    }else{
                                         setPdfFile(file)
                                     }
                                     return false
