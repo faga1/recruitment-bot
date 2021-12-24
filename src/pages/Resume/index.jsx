@@ -10,12 +10,23 @@ export default function(props){
     const [form]=Form.useForm()
 
     useEffect(() => {
+        if(checkPlatform()) return;
         redirect()
         isExist()
         if(sessionStorage.getItem('info')){
             form.setFieldsValue(JSON.parse(sessionStorage.getItem('info')))
         }
     },[])
+    // 用来判断是否用手机打开
+    const checkPlatform=()=>{
+        var isMobile = /Android|webOS|iPhone|BlackBerry/.test(navigator.userAgent)
+        if (isMobile) {
+            message.warning('请使用电脑打开')
+            props.history.push('/exist/false')
+            return true
+        }
+        return false
+    }
     // 没有token,跳转授权页
     const redirect = async()=>{
         if(!localStorage.getItem('token')){
@@ -28,13 +39,14 @@ export default function(props){
         const res= await checkExist()
         console.log(res.data.code);
         if(res.data.data){
-            props.history.push('/exist')
+            props.history.push('/exist/true')
         }
     }
     const sendResume=()=>{
         console.log(pdfFile);
         if(!pdfFile){
             message.error('请上传简历')
+            return
         }
         // 表单预验证
         form.validateFields().then(async(val)=>{
@@ -189,8 +201,8 @@ export default function(props){
                             <Upload 
                                 accept='application/pdf'
                                 beforeUpload={(file)=>{
-                                    if(file.size>10000000){
-                                        message.error('上传文件不得超过10M')
+                                    if(file.size>2000000){
+                                        message.error('上传文件不得超过2M')
                                         return Promise.reject()
                                     }else{
                                         setPdfFile(file)
@@ -206,7 +218,7 @@ export default function(props){
                                 </div>
                             </Upload>
                             <div className='addResume-text'>上传简历</div>
-                            <div className='text-remark'>(上传电子文件，不超过10M)</div>
+                            <div className='text-remark'>(上传电子文件，不超过2M)</div>
                         </div>
                         <Button type='primary' onClick={sendResume} >提交</Button>
                     </div>

@@ -26,7 +26,7 @@ export async function checkExist(){
 export async function sendForm(formData){
     const res=await axios.post(`${baseURL}/resumes`,formData)
     if(res.data.code!==20000){
-        return message.error('提交简历失败')
+        return message.error(res.data.message)
     }
     sessionStorage.getItem('info')&&sessionStorage.removeItem('info')
     message.success('简历提交成功')
@@ -41,5 +41,5 @@ export async function token(code){
         localStorage.setItem('token',res.data.data)
         return res
     }
-    message.error('获取授权失败')
+    message.error(res.data.message)
 }

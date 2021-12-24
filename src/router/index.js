@@ -23,7 +23,7 @@ export const menus = [
 		component: Resume,
 	},
 	{
-		path:'/exist',
+		path:'/exist/:isExist',
 		name: "存在",
 		icon: "",
 		exact: true,
