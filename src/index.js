@@ -10,7 +10,7 @@ import "@/assets/styles.scss";
 import "@/assets/dsky-antd.scss";
 
 if (process.env.NODE_ENV !== "production") {
-	import("./mock");
+	// import("./mock");
 }
 
 moment.locale("zh-cn");

@@ -63,4 +63,5 @@ npm run build
 ## 注意事项
 * exist页面是用来应对特殊情况的,比如使用手机或者已经拥有简历
 * 用户填写的内容如果没有提交会被我存放到sessionStorage中,避免用户在点击提交后发生token过期跳转回来之后需要重新填写的情况，但是没有把pdf文件放到缓存中(考虑到文件的大小)
-* 在刚进入resume页面时，如果用户没有授权会跳转到授权页面，授权成功后会跳转到login页面，并带上code(在地址上)，我们拿这个code向后端换取token，并跳回resume页面
+* 在刚进入resume页面时，如果用户没有授权会跳转到授权页面(授权页应先跳转至后端提供的重定向地址，该重定向地址再跳转至授权页)，授权成功后会跳转到login页面，并带上code(在地址上)，我们拿这个code向后端换取token，并跳回resume页面，部署后需要将跳转的页面进行修改(src/pages/Resume)
+* 部署后需要修改baseUrl,在src/components/request/index.js:4处修改

@@ -8,7 +8,7 @@ const {Option}=Select
 export default function(props){
     const [pdfFile,setPdfFile]=useState()
     const [form]=Form.useForm()
-
+    const [btnDisable,setBtnDisable]=useState(false)
     useEffect(() => {
         if(checkPlatform()) return;
         redirect()
@@ -22,7 +22,7 @@ export default function(props){
         var isMobile = /Android|webOS|iPhone|BlackBerry/.test(navigator.userAgent)
         if (isMobile) {
             message.warning('请使用电脑打开')
-            props.history.push('/exist/false')
+            props.history.replace('/exist/false')
             return true
         }
         return false
@@ -39,11 +39,11 @@ export default function(props){
         const res= await checkExist()
         console.log(res.data.code);
         if(res.data.data){
-            props.history.push('/exist/true')
+            props.history.replace('/exist/true')
         }
     }
     const sendResume=()=>{
-        console.log(pdfFile);
+        
         if(!pdfFile){
             message.error('请上传简历')
             return
@@ -58,10 +58,11 @@ export default function(props){
             }
             formData.append('file',pdfFile)
             formData.get('work_year')
-
+            setBtnDisable(true)
             const res = await sendForm(formData)
+            setBtnDisable(false)
             if(res.data.code===20000){
-                props.history.push('/exist')
+                props.history.replace('/exist/true')
             }
             
         })
@@ -220,7 +221,7 @@ export default function(props){
                             <div className='addResume-text'>上传简历</div>
                             <div className='text-remark'>(上传电子文件，不超过2M)</div>
                         </div>
-                        <Button type='primary' onClick={sendResume} >提交</Button>
+                        <Button type='primary' onClick={sendResume} disabled={btnDisable}>提交</Button>
                     </div>
                 </div>
             </div>
